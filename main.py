@@ -111,7 +111,7 @@ def create_deck():
 @app.route('/deck/download/<deck_name>')
 def download_deck(deck_name):
     if 'userid' not in session:
-        return redirect('/login')
+        return redirect('/login?next=/decks')
         
     file_name = f"{session['userid']}-{deck_name}.csv"
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
@@ -126,7 +126,7 @@ def download_deck(deck_name):
 @app.route('/decks')
 def list_decks():
     if 'userid' not in session:
-        return redirect('/login')
+        return redirect('/login?next=/decks')
         
     user_decks = []
     for file in os.listdir(app.config['UPLOAD_FOLDER']):
@@ -139,7 +139,7 @@ def list_decks():
 @app.route('/deck/edit/<deck_name>', methods=['GET', 'POST'])
 def edit_deck(deck_name):
     if 'userid' not in session:
-        return redirect('/login')
+        return redirect(f'/login?next=/deck/edit/{ deck_name }')
         
     file_name = f"{session['userid']}-{deck_name}.csv"
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
@@ -166,7 +166,7 @@ def edit_deck(deck_name):
 @app.route('/study/<deck_name>')
 def study_deck(deck_name):
     if 'userid' not in session:
-        return redirect('/login')
+        return redirect(f'/login?next=/study/{deck_name}')
         
     file_name = f"{session['userid']}-{deck_name}.csv"
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
@@ -184,7 +184,7 @@ def study_deck(deck_name):
 @app.route('/deck/delete/<deck_name>')
 def delete_deck(deck_name):
     if 'userid' not in session:
-        return redirect('/login')
+        return redirect('/login?next=/decks')
         
     file_name = f"{session['userid']}-{deck_name}.csv"
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
