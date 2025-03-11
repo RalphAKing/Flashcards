@@ -102,12 +102,11 @@ def create_deck():
         csv_file = request.files['file']
         csv_file.save(file_path)
     else:
-        # Create empty deck
         with open(file_path, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['question', 'answer'])
     
-    return redirect('/flashcards')
+    return redirect('/decks')
 
 @app.route('/deck/download/<deck_name>')
 def download_deck(deck_name):
