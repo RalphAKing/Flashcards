@@ -182,6 +182,20 @@ def study_deck(deck_name):
         
     return render_template('study.html', deck_name=deck_name, flashcards=cards)
 
+@app.route('/deck/delete/<deck_name>')
+def delete_deck(deck_name):
+    if 'userid' not in session:
+        return redirect('/login')
+        
+    file_name = f"{session['userid']}-{deck_name}.csv"
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+    
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        
+    return redirect('/decks')
+
+
 
 @app.route('/logout')
 def logout():
