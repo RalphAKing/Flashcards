@@ -106,7 +106,7 @@ def create_deck():
             writer = csv.writer(f)
             writer.writerow(['question', 'answer'])
     
-    return redirect('/decks')
+    return redirect(f'/deck/edit/{deck_name}')
 
 @app.route('/deck/download/<deck_name>')
 def download_deck(deck_name):
@@ -177,7 +177,7 @@ def study_deck(deck_name):
         cards = list(reader)
     
     if not cards:
-        return redirect(url_for('edit_deck', deck_name=deck_name))
+        return redirect(f"/deck/edit/{deck_name}" )
         
     return render_template('study.html', deck_name=deck_name, flashcards=cards)
 
